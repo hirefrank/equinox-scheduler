@@ -13,19 +13,19 @@ var CLASSES = {
     'name': "Precision Running", 
     'book_time': "05:15 AM", 
     'start_time': "07:15 AM",
-    'favorite_equipment': 10,
+    'favorite_equipment': 1,
   },
   'Thursday': {
     'name': "Precision Running", 
     'book_time': "05:15 AM", 
     'start_time': "07:15 AM", 
-    'favorite_equipment': 10,
+    'favorite_equipment': 1,
   },
   'Sunday': {
     'name': "Precision Running", 
     'book_time': "07:30 AM", 
     'start_time': "09:30 AM", 
-    'favorite_equipment': 10,
+    'favorite_equipment': 1,
   },
 };
 
