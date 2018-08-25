@@ -60,11 +60,10 @@ function main() {
       log('Current time is the book time. Attempting to reserve your class...', class);
      
       var json_data = JSON.parse(getClasses());
-      var bookings = json_data['todayBookings'];
       var strikes = json_data['strikes'].count;
       var upcoming = json_data['classes']; 
 
-      if (strikes < 3 && bookings == 0) {
+      if (strikes < 3) {
         for (c in upcoming) {
           var uc = upcoming[c];
           var match = uc['name'].match(class.name) && uc['displayTime'].match(class.start_time + ' ') ? true : false;
