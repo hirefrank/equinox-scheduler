@@ -15,4 +15,9 @@ var CLASSES = {
     'start_time': "07:15 AM",
     'favorite_equipment': 12,
   },
+  'Wednesday': {
+    'name': "Vinyasa Yoga", 
+    'book_time': "03:45 PM", 
+    'start_time': "05:45 PM",
+  },
 };
