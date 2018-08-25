@@ -15,18 +15,6 @@ var CLASSES = {
     'start_time': "07:15 AM",
     'favorite_equipment': 1,
   },
-  'Thursday': {
-    'name': "Precision Running", 
-    'book_time': "05:15 AM", 
-    'start_time': "07:15 AM", 
-    'favorite_equipment': 1,
-  },
-  'Sunday': {
-    'name': "Precision Running", 
-    'book_time': "07:30 AM", 
-    'start_time': "09:30 AM", 
-    'favorite_equipment': 1,
-  },
 };
 
 /* Do not edit below */
@@ -151,8 +139,10 @@ function apiFetch(api, method, form) {
     'muteHttpExceptions': true,
   };
   
-  var url = API_BASE_URL + api;                      
+  var url = API_BASE_URL + api;
   var response = UrlFetchApp.fetch(url, parameters);   
+  log('url', url);
+  log('url parameters', parameters);
   
   return response;
 }
