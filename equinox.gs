@@ -1,22 +1,3 @@
-/* Things to edit */
-
-// use developer tools in chome to get the cookie
-var COOKIE = 'EqAuth.v1=XXX';
-
-// sign in and go here: https://www.equinox.com/classschedule -- get number from 'clubs' parameter in the url
-var CLUB_ID = '130';
-
-// add days and classes; only one class per day
-// must be HH:MM AM or PM
-var CLASSES = {
-  'Tuesday': {
-    'name': "Precision Running", 
-    'book_time': "05:15 AM", 
-    'start_time': "07:15 AM",
-    'favorite_equipment': 1,
-  },
-};
-
 /* Do not edit below */
 
 var DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
