@@ -26,7 +26,7 @@ function main() {
     
     // Proceed if the current time is the same as the book time
     if (TODAY.getTime() === book_time.getTime()) {
-      log('Current time is the book time. Attempting to reserve your class...', class);
+      console.log('Current time is the book time. Attempting to reserve your class...', class);
      
       var json_data = JSON.parse(getClasses());
       var strikes = json_data['strikes'].count;
@@ -63,14 +63,14 @@ function main() {
               }
             }
             book_request = bookClass(class_id, equipment_id);
-            log('Attempted to reserve a class!', book_request);
+            console.log('Attempted to reserve a class!', book_request);
 
             break;            
           };
         } 
       }
     } else {
-      log('Current time is not the book time.', class);
+      console.log('Current time is not the book time.', class);
     }
   }
 }
@@ -88,16 +88,16 @@ function bookClass(class_id, equipment_id){
 }
 
 function getClasses () {
-  var startDate = new Date();
-  startDate.setDate(startDate.getDate() + 1);
+  var start_date = new Date();
+  start_date.setDate(start_date.getDate() + 1);
   
-  var endDate = new Date(); 
-  endDate.setDate(endDate.getDate() + 2);
+  var end_date = new Date(); 
+  end_date.setDate(end_date.getDate() + 2);
   
   var form = {                                                                 
     'facilityIds': CLUB_ID,
-    'startDate': formatDate(startDate),
-    'endDate': formatDate(endDate),
+    'startDate': formatDate(start_date),
+    'endDate': formatDate(end_date),
     'isBookingRequired': true,
   };
   
@@ -122,8 +122,8 @@ function apiFetch(api, method, form) {
   
   var url = API_BASE_URL + api;
   var response = UrlFetchApp.fetch(url, parameters);   
-  log('url', url);
-  log('url parameters', parameters);
+  console.log('url:', url);
+  console.log('url parameters:', parameters);
   
   return response;
 }
@@ -138,10 +138,4 @@ function formatDate(date) {
   if (day.length < 2) day = '0' + day;
 
   return [year, month, day].join('-');
-}
-
-function log(message, parameters) {
-  Logger.log(message);
-  Logger.log(parameters);
-  console.log({message: message, initialData: parameters});
 }
