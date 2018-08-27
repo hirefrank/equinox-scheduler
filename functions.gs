@@ -12,7 +12,7 @@ function main() {
     var book_time = class.book_time.split(":");
     var bt_temp = book_time[1].split(" ");
     var hours = parseInt(book_time[0]);
-    var minutes = parseInt(bt_temp[0]);
+    var minutes = parseInt(bt_temp[0])+1;
     var am_pm = bt_temp[1];
     
     if (am_pm.toUpperCase() == "PM") {
@@ -35,37 +35,42 @@ function main() {
       if (strikes < 3) {
         for (c in upcoming) {
           var uc = upcoming[c];
-          var match = uc['name'].match(class.name) && uc['displayTime'].match(class.start_time + ' ') ? true : false;
+          var match = uc['name'].toLowerCase().match(class.name.toLowerCase()) && uc['displayTime'].match(class.start_time + ' ') ? true : false;
           
-          if (match == true && uc['status']['reservableItemsLeft'] > 0) {
-            var equipment_id;
-            var class_id = uc['classInstanceId'].toFixed(0);
+          if (uc['status']['isWithinReservationPeriod'] == true) {
+            console.log('Reservation is open!');
             
-            // is this a class where you have to reserve equipment?
-            // if empty, class doesnt require you to book equipment (e.g bike, treadmill, etc)
-            // if 'spots', you don't
-            if (uc['gridItemTypePlural'] != 'spots') {
-              // fetch available bookable equipment for class
-              var equipment = JSON.parse(openSlots(class_id));       
-              var available = equipment.layout.bikes.filter(function (entry) {
-                return entry.reserved === false;
-              });
+            if (match == true && uc['status']['reservableItemsLeft'] > 0) {
+              var equipment_id;
+              var class_id = uc['classInstanceId'].toFixed(0);
               
-              var favorite = available.filter(function (entry) {
-                return entry.localId == class.favorite_equipment;
-              });
-        
-              if (favorite.length === 1) {
-                equipment_id = favorite[0].reservableEquipmentId.toFixed(0);
-              } else {
-                var i = Math.floor(Math.random()*available.length);
-                equipment_id = available[i].localId.toFixed(0);
+              // is this a class where you have to reserve equipment?
+              // if empty, class doesnt require you to book equipment (e.g bike, treadmill, etc)
+              // if 'spots', you don't
+              if (uc['gridItemTypePlural'] != 'spots') {
+                // fetch available bookable equipment for class
+                var equipment = JSON.parse(openSlots(class_id));       
+                var available = equipment.layout.bikes.filter(function (entry) {
+                  return entry.reserved == false;
+                });
+                
+                var favorite = available.filter(function (entry) {
+                  return entry.localId == class.favorite_equipment;
+                });
+                
+                if (favorite.length === 1) {
+                  equipment_id = favorite[0].reservableEquipmentId.toFixed(0);
+                } else {
+                  var i = Math.floor(Math.random()*available.length);
+                  equipment_id = available[i].localId.toFixed(0);
+                }
               }
-            }
-            book_request = bookClass(class_id, equipment_id);
-            console.log('Attempted to reserve a class!', book_request);
+              
+              book_request = bookClass(class_id, equipment_id);
+              console.log('Attempted to reserve a class!', book_request);
 
-            break;            
+              break;
+            }
           };
         } 
       }
