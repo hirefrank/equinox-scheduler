@@ -40,6 +40,8 @@ function main() {
           if (uc['status']['isWithinReservationPeriod'] == true) {
             console.log('Reservation is open!');
             
+            Logger.log(uc);
+            
             if (match == true && uc['status']['reservableItemsLeft'] > 0) {
               var equipment_id;
               var class_id = uc['classInstanceId'].toFixed(0);
@@ -50,19 +52,19 @@ function main() {
               if (uc['gridItemTypePlural'] != 'spots') {
                 // fetch available bookable equipment for class
                 var equipment = JSON.parse(openSlots(class_id));       
-                var available = equipment.layout.bikes.filter(function (entry) {
+                var available = equipment.layout.equipments.filter(function (entry) {
                   return entry.reserved == false;
                 });
-                
+                                
                 var favorite = available.filter(function (entry) {
                   return entry.localId == class.favorite_equipment;
                 });
-                
+                                
                 if (favorite.length === 1) {
                   equipment_id = favorite[0].reservableEquipmentId.toFixed(0);
                 } else {
                   var i = Math.floor(Math.random()*available.length);
-                  equipment_id = available[i].localId.toFixed(0);
+                  equipment_id = available[i].reservableEquipmentId.toFixed(0);
                 }
               }
               
@@ -81,7 +83,7 @@ function main() {
 }
 
 function openSlots(class_id){ 
-  var url = '/v2/classes/bikes/' + class_id;
+  var url = '/v2/bookaclass/equipments/' + class_id;
   return apiFetch(url, 'get'); 
 }
 
