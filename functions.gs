@@ -12,7 +12,7 @@ function main() {
     var book_time = class.book_time.split(":");
     var bt_temp = book_time[1].split(" ");
     var hours = parseInt(book_time[0]);
-    var minutes = parseInt(bt_temp[0])+1;
+    var minutes = parseInt(bt_temp[0]); //+1;
     var am_pm = bt_temp[1];
     
     if (am_pm.toUpperCase() == "PM") {
