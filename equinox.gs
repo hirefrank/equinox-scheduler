@@ -1,7 +1,15 @@
+/**
+ * Returns the class's metadata as well as available slots for reserving.
+ */
+
 function openSlots(class_id) { 
   var url = '/v2/bookaclass/equipments/' + class_id;
   return apiFetch(url, 'get'); 
 }
+
+/**
+ * Reserve's the class and equipment, if required.
+ */
 
 function bookClass(class_id, club_id, equipment_id){ 
   var equipment = (equipment_id == undefined) ? '' : '?bikeId=' + equipment_id;
@@ -9,7 +17,11 @@ function bookClass(class_id, club_id, equipment_id){
   
   return apiFetch(url, 'put'); 
 }
-  
+
+/**
+ * Returns the user's equinox calendar.
+ */
+
 function calendar(from_date, to_date) { 
   var url = '/v3/me/calendar/?fromDate=' + formatDate(from_date) + '&toDate=' + formatDate(to_date);
   return apiFetch(url, 'get'); 
