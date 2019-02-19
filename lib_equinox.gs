@@ -1,4 +1,13 @@
 /**
+ * Returns the class's metadata
+ */
+
+function classDetails(class_id){ 
+  var url = '/v3/classes/' + class_id;
+  return apiFetch(url, 'get'); 
+}
+
+/**
  * Returns the class's metadata as well as available slots for reserving.
  */
 
@@ -65,6 +74,10 @@ function apiFetch(api, method, form) {
   var response = UrlFetchApp.fetch(url, parameters);   
   
   return response;
+  
+  // add caching
+  // https://stackoverflow.com/questions/25511883/how-can-i-cache-an-object-in-google-apps-scripts
+  // https://developers.google.com/apps-script/reference/cache/
 }
 
 /**
