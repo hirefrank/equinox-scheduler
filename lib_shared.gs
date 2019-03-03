@@ -14,7 +14,7 @@ function setup() {
     // if no property override, use the default: every 4 hours
     const CALENDAR_HOURS_FREQUENCY = PropertiesService.getScriptProperties().getProperty('calendar_hours_frequency') || 4;
     const RESERVE_MINUTES_FREQUENCY = PropertiesService.getScriptProperties().getProperty('reserve_minutes_frequency') || 5;
-    const PREFILL_MINUTES_FREQUENCY = PropertiesService.getScriptProperties().getProperty('prefill_minutes_frequency') || 14;
+    const PREFILL_DAYS_FREQUENCY = PropertiesService.getScriptProperties().getProperty('prefill_days_frequency') || 14;
     
     // create calendar sync trigger
     ScriptApp.newTrigger("calendarSync")
@@ -31,7 +31,7 @@ function setup() {
     // create prefill trigger
     ScriptApp.newTrigger("prefill")
       .timeBased()
-      .everyDays(PREFILL_MINUTES_FREQUENCY)
+      .everyDays(PREFILL_DAYS_FREQUENCY)
       .create();
     
     // run the initial prefill
