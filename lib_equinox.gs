@@ -1,4 +1,20 @@
 /**
+ * Returns the club's classes for a given date range
+ */
+
+function getClasses(from_date, to_date, club_id) {
+  var url = '/v1/classes/allclasses';
+  var form = {                                                                 
+    'facilityIds': club_id,
+    'startDate': formatDate(from_date),
+    'endDate': formatDate(to_date),
+    'isBookingRequired': false,
+  };
+  
+  return apiFetch(url, 'post', form); 
+}
+
+/**
  * Returns the class's metadata
  */
 
@@ -17,7 +33,7 @@ function openSlots(class_id) {
 }
 
 /**
- * Reserve's the class and equipment, if required.
+ * Reserves the class and equipment, if required.
  */
 
 function bookClass(class_id, club_id, equipment_id){ 
@@ -34,6 +50,28 @@ function bookClass(class_id, club_id, equipment_id){
 function calendar(from_date, to_date) { 
   var url = '/v3/me/calendar/?fromDate=' + formatDate(from_date) + '&toDate=' + formatDate(to_date);
   return apiFetch(url, 'get'); 
+}
+
+/**
+ * Checks to see if class is on the user's equinox calendar.
+ */
+
+function isOnCalendar(class_id, user_calendar) { 
+  for (c in user_calendar) {
+    if (user_calendar[c].classInstanceId.toFixed(0) == class_id) {
+      return true;
+    }
+  }
+  return false; 
+}
+
+/**
+ * Adds class to the user's equinox calendar.
+ */
+
+function addToCalendar(class_id) { 
+  var url = '/v3/me/calendar/' + class_id;
+  return apiFetch(url, 'post'); 
 }
 
 /**

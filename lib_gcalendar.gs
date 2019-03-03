@@ -46,24 +46,36 @@ function addEvents(from_date, to_date, footer) {
       // prepend name and description fields if applicable
       // if status exist, it's an event with a reservation
       if (e.status !== undefined) {
+        
         // if localId exists, equipment (treadmill, bike, etc) has been reserved for the class
         // add it to the description
         if (e.status !== null && 'localId' in e.status) description = e.status['gridItemType'] + ' #' +  e.status['localId'] + description;
       
       // if classInstanceId exist, it's an event that requires a reservation
       } else if (e.classInstanceId !== undefined) {        
+        
         // get class details to determine when resservations open
         var d = JSON.parse(classDetails(e.classInstanceId.toFixed(0)));
-        var bt = new Date(d.status['reservationStartDate']).toLocaleString();
         
-        // update the event name and description to reflect the class requires a resservation
-        if (d.status !== undefined && d.status['hasReservation'] == false) name = '[HOLD] ' + name;
-        description = 'This class requires a reservation. Reservations open on ' + bt + '.' + description;
+        // if class requires reservation
+        if (d.status !== undefined) { 
+          if (d.status['isWithinReservationPeriod'] == false) {
+            var bt = new Date(d.status['reservationStartDate']).toLocaleString();
+            
+            // substring hack to remove incorrect timezone, it isn't stored property in equinox
+            description = ' Reservations open on ' + bt.substring(0, bt.length - 4) + '.' + description;
+          }
+          
+          // update the event name and description to reflect the class requires a resservation
+          if (d.status['hasReservation'] == false) name = '[HOLD] ' + name;
+          description = 'This class requires a reservation.' + description;
+        }
       }
       
       // add the event to the calendar and log it
       var event = getCalendar().createEvent(name, start, end,{location: location, description: description});
-      console.log('Added Event Id: ' + event.getId());
+      logIt('Added Event Id: ' + event.getId());
+      
       // 1s pause to throttle api calls
       Utilities.sleep(1000);
     }
@@ -78,9 +90,11 @@ function deleteEvents(from_date, to_date, footer) {
   // retrieve all events that includes the footer message
   var events = getCalendar().getEvents(from_date, to_date, {search: footer.replace(/(<([^>]+)>)/ig,'')});
   for (e in events) {
+    
     // delete each event and log it
     events[e].deleteEvent();
-    console.log('Deleted Event Id: ' + events[e].getId());
+    logIt('Deleted Event Id: ' + events[e].getId());
+    
     // 1s pause to throttle api calls
     Utilities.sleep(1000);
   }

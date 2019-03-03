@@ -1,5 +1,5 @@
 /**
- * Main function that intiates the sync.
+ * Main function syncs Equinox and Google Calendars.
  * ---
  * By default it syncs the calendars 45 days in advance. If you want to override 
  * that setting create a script property named 'days_in_advance' and set the value 
