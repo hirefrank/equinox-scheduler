@@ -1,5 +1,5 @@
 /**
- * Regular classes (OPTIONAL)
+ * Regular classes
  * ---
  * Define classes you regularly attend to automatically add them
  * to your Equinox scheduler.
