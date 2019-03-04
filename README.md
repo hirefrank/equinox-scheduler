@@ -28,7 +28,7 @@ prefill_days_frequency | Frequency in days to add regular classes to the Equinox
 
 1. Save a class to your Equinox Calendar from the app or website.
 1. All classes on your Equinox Calendar are synced to your Google Calendar.
-1. If a class requires a reservation, the program will book it for you when the reservation window opens. (You'll receive an email from Equinox once your class is booked.)
+1. If a class requires a reservation, the program will book it for you when the reservation window opens. (You'll receive an email from Equinox once the class is booked.)
 
 ## Regular Classes
 
