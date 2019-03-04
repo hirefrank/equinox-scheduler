@@ -56,7 +56,7 @@ For the progam to work on your behalf, you need to find your EqAuth.v1= equinox.
 
 ## Club Id
 
-Each Equinox location has a club id. If you want to add regular classess in advance, you'll need to determine the club's id for each class.
+To determine the unique club id of an Equinox location follow the instructions below.
 
 1. Go to https://www.equinox.com/classschedule
 1. If you are a member of only one club, you should see `?club=XXX` appear in the URL. `XXX` is the club id.
