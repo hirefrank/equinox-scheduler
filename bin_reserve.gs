@@ -31,13 +31,17 @@ function reserve() {
         // retrieve class details
         var class_id = uc.classInstanceId.toFixed(0);
         var details = JSON.parse(openSlots(class_id));
-        var bookable = details.classInstanceDetail.isBookable;
+        
+        var isBookableOnline = details.classInstanceDetail.isBookableOnline;
+        var isClassFull = details.layout.cycleClassStatus.isClassFull;
+        var isClassWithinReservationPeriod = details.layout.cycleClassStatus.isClassWithinReservationPeriod;
+        
         var equipment_type = details.layout.gridItemType;
         var club_id = details.layout.facilityId;
         var equipment_id;
         
         // if class is bookable
-        if (bookable == true) {
+        if (isBookableOnline == true && isClassFull == false && isClassWithinReservationPeriod == true) {
           if (equipment_type != 0) {
           
             // fetch available bookable equipment for class
