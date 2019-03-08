@@ -9,7 +9,7 @@
 ## Getting Started
 
 1. Create a new [Google App Script](https://script.google.com/home/my) project with the contents of all the `.gs` files in this repo.
-1. Create `cookie` property and any other desired properties, see below. (File > Project properties > Script properties)
+1. Create `email` and `password` script properties and any other desired properties below. (File > Project properties > Script properties)
 1. Run the setup function to configure the script's time based triggers. (Run > Run function > setup)
 1. (Optional) Enable Stackdriver Logging. (View > Stackdriver Logging)
 
@@ -17,7 +17,8 @@
 
 Property name | Value
 ------------ | -------------
-cookie | **Required**. The user's EqAuth.v1= equinox.com cookie; used for authentication
+email | **Required**. The user's email used for authentication on equinox.com
+password | **Required**. The user's password used for authentication on equinox.com
 days_in_advance | The number of days in advance to scan the Equinox Calendar (default: 45)
 calendar | The Google Calendar Id used for adding events (default: User's default Google Calendar)
 calendar_hours_frequency | Frequency in hours to sync the Equinox and Google Calendars (default: 4)
@@ -44,15 +45,6 @@ var REGULAR_CLASSES = {
     ]},
 };
 ```
-## Authentication Cookie
-
-For the progam to work on your behalf, you need to find your EqAuth.v1= equinox.com cookie.
-
-1. In Chrome, go to https://www.equinox.com/account and sign-in.
-1. Open View > Developer > Developer Tools and then select the "Application" tab.
-1. Open the "Cookies" dropdown under Storage and find the http://www.equinox.com cookie.
-1. Locate the EqAuth.v1 name and copy the value.
-1. When adding the `cookie` Script property you must enter the value in this format `EqAuth.v1=XXXX;`
 
 ## Club Id
 
