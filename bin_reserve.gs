@@ -18,7 +18,7 @@ function reserve() {
   // fetch upcoming user's classes
   var results = JSON.parse(calendar(from_date, to_date));
   var upcoming = results.events;
-  
+    
   // if there are results
   if (upcoming.length > 0) {
   	for (u in upcoming) {

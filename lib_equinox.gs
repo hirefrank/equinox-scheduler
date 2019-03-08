@@ -75,14 +75,43 @@ function addToCalendar(class_id) {
 }
 
 /**
+ * Return the user's authentication cookie
+ */
+
+function getAuthCookie() {
+  var form = {                                                                 
+    'username': PropertiesService.getScriptProperties().getProperty('email'),
+    'password': PropertiesService.getScriptProperties().getProperty('password'),
+    'persistLogin': true
+  };
+  
+  var headers = {                                                              
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36',
+    'Origin': 'https://www.equinox.com',
+    'Referer': 'https://www.equinox.com/login'
+  };  
+  
+  // assembles the options
+  // sets the headers, method
+  var options = {                                                                                                                
+    'headers': headers,
+    'payload': form,
+    'method': 'post', 
+    'muteHttpExceptions': true,
+  };
+  
+  var response = UrlFetchApp.fetch('https://api.equinox.com/v1/authentication/login', options);
+  return response.getAllHeaders()['Set-Cookie'][0].split(';')[0];
+}
+
+/**
  * Makes an authenticated Equinox API and returns the response
  * ---
- * Accepts API endpoint, method, and form data (optional). Requires a script 
- * property named 'cookie' with the value of the user's EqAuth.v1 equinox.com cookie.
+ * Accepts API endpoint, method, and form data (optional). Requires script 
+ * properties named 'email' and 'password' for authentication.
  */
 
 function apiFetch(api, method, form) {
-  const COOKIE = PropertiesService.getScriptProperties().getProperty('cookie');
   const API_BASE_URL = 'https://api.equinox.com';
   
   // not all api calls have form data
@@ -92,7 +121,7 @@ function apiFetch(api, method, form) {
   // assemble the header
   // spoof user-agent, origin, referer
   var headers = {                                                              
-    'Cookie': COOKIE,
+    'Cookie': getAuthCookie(),
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36',
     'Origin': 'https://www.equinox.com',
     'Referer': 'https://www.equinox.com/activity'
