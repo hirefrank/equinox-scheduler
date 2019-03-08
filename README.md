@@ -20,7 +20,7 @@ Property name | Value
 email | **Required**. The user's email used for authentication on equinox.com
 password | **Required**. The user's password used for authentication on equinox.com
 days_in_advance | The number of days in advance to scan the Equinox Calendar (default: 45)
-calendar | The Google Calendar Id used for adding events (default: User's default Google Calendar)
+calendar | The Google Calendar Id used for adding events (default: default calendar)
 calendar_hours_frequency | Frequency in hours to sync the Equinox and Google Calendars (default: 4)
 reserve_minutes_frequency | Frequency in minutes to scan the calendar for classes to reserve (default: 5)
 prefill_days_frequency | Frequency in days to add regular classes to the Equinox Calendar (default: 14)
